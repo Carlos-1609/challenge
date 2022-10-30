@@ -7,11 +7,23 @@ class BatteryProvider with ChangeNotifier {
   int batteryPercentage = 100;
   final Battery battery = Battery();
   int batteryLevel = 0;
+  Timer? timer;
   // Timer timer;
 
-  getBatteryLevel() async {
+  _getBatteryLevel() async {
     final level = await battery.batteryLevel;
     batteryLevel = level;
     notifyListeners();
   }
+
+  batteryTimer() {
+    Timer.periodic(
+      const Duration(seconds: 5),
+      (timer) {
+        _getBatteryLevel();
+      },
+    );
+  }
+
+  disposeService() => timer!.cancel();
 }

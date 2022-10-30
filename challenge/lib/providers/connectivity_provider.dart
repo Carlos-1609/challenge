@@ -15,4 +15,6 @@ class ConnectivityProvider with ChangeNotifier {
       },
     );
   }
+
+  cancelInternetSub() => internetSubscription.cancel();
 }

@@ -14,16 +14,10 @@ class DeviceInfo extends StatefulWidget {
 }
 
 class _DeviceInfoState extends State<DeviceInfo> {
-  Timer? timer;
   @override
   void initState() {
     super.initState();
-    Timer.periodic(
-      const Duration(seconds: 5),
-      (timer) {
-        Provider.of<BatteryProvider>(context, listen: false).getBatteryLevel();
-      },
-    );
+    Provider.of<BatteryProvider>(context, listen: false).batteryTimer();
     Provider.of<ConnectivityProvider>(context, listen: false)
         .checkInternetConnection();
   }
@@ -31,10 +25,10 @@ class _DeviceInfoState extends State<DeviceInfo> {
   @override
   void dispose() {
     // TODO: implement dispose
-    timer!.cancel();
-    Provider.of<ConnectivityProvider>(context, listen: false)
-        .internetSubscription
-        .cancel();
+    // timer!.cancel();
+    // Provider.of<ConnectivityProvider>(context, listen: false)
+    //     .internetSubscription
+    //     .cancel();
     super.dispose();
   }
 
