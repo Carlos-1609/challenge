@@ -38,6 +38,8 @@ class _HomePageState extends State<HomePage> {
                 ElevatedButton(
                   onPressed: () {
                     //photo.pickImage(context, ImageSource.camera);
+                    photo.setIsImageTaken = false;
+                    photo.showResponse = false;
                     photo.imaggaResponse = '';
                     Navigator.of(context).pushNamed(Camera.routeName);
                   },
@@ -46,6 +48,7 @@ class _HomePageState extends State<HomePage> {
                 ElevatedButton(
                   onPressed: () {
                     photo.imaggaResponse = '';
+                    photo.showResponse = false;
                     photo.pickImage(context, ImageSource.gallery);
                   },
                   child: Text('Load Picture from Gallery'),

@@ -99,6 +99,9 @@ class _CameraState extends State<Camera> {
                   )
                 ],
               ),
+              SizedBox(
+                height: 15,
+              ),
               !photo.isImageTaken
                   ? FutureBuilder(
                       future: cameraValue,
@@ -106,7 +109,11 @@ class _CameraState extends State<Camera> {
                         if (snapshot.connectionState == ConnectionState.done) {
                           return Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: CameraPreview(_cameraController),
+                            child: SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.7,
+                              width: MediaQuery.of(context).size.width,
+                              child: CameraPreview(_cameraController),
+                            ),
                           );
                         } else {
                           return const Center(
@@ -120,28 +127,36 @@ class _CameraState extends State<Camera> {
                       child: Image.file(
                         photo.image as File,
                         width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height,
+                        height: MediaQuery.of(context).size.height * 0.6,
                       ),
                     ),
+              SizedBox(
+                height: 15,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   ElevatedButton(
-                      onPressed: () {
-                        selectedCameraIdx =
-                            selectedCameraIdx < 1 ? selectedCameraIdx + 1 : 0;
-                        //print(widget.cameras[selectedCameraIdx]);
-                        initCamera(selectedCameraIdx);
-                      },
+                      onPressed: photo.isImageTaken
+                          ? null
+                          : () {
+                              selectedCameraIdx = selectedCameraIdx < 1
+                                  ? selectedCameraIdx + 1
+                                  : 0;
+                              //print(widget.cameras[selectedCameraIdx]);
+                              initCamera(selectedCameraIdx);
+                            },
                       child: const Text('Flip Camera')),
                   ElevatedButton(
-                      onPressed: () {
-                        photo.takePhoto(
-                          cameraController: _cameraController,
-                          cameraValue: cameraValue,
-                          mounted: mounted,
-                        );
-                      },
+                      onPressed: photo.isImageTaken
+                          ? null
+                          : () {
+                              photo.takePhoto(
+                                cameraController: _cameraController,
+                                cameraValue: cameraValue,
+                                mounted: mounted,
+                              );
+                            },
                       child: const Text('Take Picture')),
                   ElevatedButton(
                       onPressed: photo.isImageTaken

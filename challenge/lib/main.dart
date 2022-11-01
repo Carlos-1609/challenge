@@ -12,8 +12,6 @@ import 'package:provider/provider.dart';
 
 import 'providers/notification_provider.dart';
 
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-    FlutterLocalNotificationsPlugin();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // // Obtain a list of the available cameras on the device.
@@ -32,6 +30,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
   @override
   void initState() {
     super.initState();
@@ -52,7 +52,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         state == AppLifecycleState.detached) return;
     final isAppBackground = state == AppLifecycleState.paused;
     if (isAppBackground) {
-      print('se salio de la app');
       NotificationProvider.showTextNotification(
           title: "Leaving the app",
           body: "Press to go back to the app",

@@ -4,7 +4,6 @@ import 'package:camera/camera.dart';
 import 'package:challenge/screens/displaypicture.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_native_image/flutter_native_image.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
@@ -18,6 +17,7 @@ class PhotoProvider with ChangeNotifier {
   String imageId = '';
   String? base64String;
   bool isImageTaken = false;
+  bool showResponse = false;
   var imaggaResponse = '';
 
   set setIsImageTaken(bool imageState) {
@@ -63,8 +63,7 @@ class PhotoProvider with ChangeNotifier {
     Directory appDocDir = await getApplicationDocumentsDirectory();
     String appDocPath = appDocDir.path;
     final fileName = basename(image!.path);
-    _imagePath =
-        '$appDocPath/$fileName'; //este es el directorio donde esta la imagen en el phone
+    _imagePath = '$appDocPath/$fileName';
     Uint8List imagebytes = await image!.readAsBytes();
     base64String = base64.encode(imagebytes);
     final result = await ImageGallerySaver.saveImage(imagebytes);
@@ -86,6 +85,7 @@ class PhotoProvider with ChangeNotifier {
       );
       imaggaResponse = response.body;
       Map<String, dynamic> responseData = jsonDecode(response.body);
+      showResponse = true;
       notifyListeners();
       print(responseData);
     } catch (error) {

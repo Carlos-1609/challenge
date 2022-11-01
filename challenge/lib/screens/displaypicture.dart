@@ -32,37 +32,43 @@ class _DisplayPictureState extends State<DisplayPicture> {
                 height: 15,
               ),
               DeviceInfo(),
-              // const Text('Device Info'),
+              SizedBox(
+                height: 15,
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Image.file(
-                  photo.image as File,
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
-                ),
+                child: Image.file(photo.image as File,
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height * 0.6),
               ),
-              Container(
-                margin: const EdgeInsets.all(15.0),
-                padding: const EdgeInsets.all(3.0),
-                height: 160.0,
-                decoration: BoxDecoration(
-                  border: photo.imaggaResponse.isEmpty
-                      ? null
-                      : Border.all(
-                          color: Colors.blueAccent,
-                          width: 2.0,
-                        ),
-                ),
-                child: SingleChildScrollView(
-                  // for Vertical scrolling
-                  scrollDirection: Axis.vertical,
-                  child: RichText(
-                    text: TextSpan(
-                      style: TextStyle(color: Colors.black),
-                      text: photo.imaggaResponse,
+              Visibility(
+                visible: photo.showResponse,
+                child: Container(
+                  margin: const EdgeInsets.all(15.0),
+                  padding: const EdgeInsets.all(3.0),
+                  height: 160.0,
+                  decoration: BoxDecoration(
+                    border: photo.imaggaResponse.isEmpty
+                        ? null
+                        : Border.all(
+                            color: Colors.blueAccent,
+                            width: 2.0,
+                          ),
+                  ),
+                  child: SingleChildScrollView(
+                    // for Vertical scrolling
+                    scrollDirection: Axis.vertical,
+                    child: RichText(
+                      text: TextSpan(
+                        style: TextStyle(color: Colors.black),
+                        text: photo.imaggaResponse,
+                      ),
                     ),
                   ),
                 ),
+              ),
+              SizedBox(
+                height: photo.showResponse ? 0 : 15,
               ),
               ElevatedButton(
                 onPressed: () {
