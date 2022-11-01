@@ -37,11 +37,33 @@ class _DeviceInfoState extends State<DeviceInfo> {
     var battery = Provider.of<BatteryProvider>(context);
     var conn = Provider.of<ConnectivityProvider>(context);
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text('Battery ${battery.batteryLevel}%'),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Battery: ${battery.batteryLevel}%',
+              style:
+                  TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(
+              width: 3,
+            ),
+            SizedBox(
+              height: 10,
+              width: 10,
+              child:
+                  battery.isLoading ? CircularProgressIndicator() : SizedBox(),
+            ),
+          ],
+        ),
         Text(
-            'Internet Connection Status: ${conn.hasInternet ? 'Active' : 'Disable'}')
+          'Internet Connection Status: ${conn.hasInternet ? 'Active' : 'Disable'}',
+          style: TextStyle(
+              color: conn.hasInternet ? Colors.green : Colors.red,
+              fontWeight: FontWeight.bold),
+        )
       ],
     );
   }

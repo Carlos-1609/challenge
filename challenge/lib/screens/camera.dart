@@ -66,14 +66,24 @@ class _CameraState extends State<Camera> {
   Widget build(BuildContext context) {
     final photo = Provider.of<PhotoProvider>(context);
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Camera Preview'),
+        automaticallyImplyLeading: true,
+        toolbarHeight: 40,
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
+              SizedBox(
+                height: 10,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  const DeviceInfo(),
+                  Center(
+                    child: const DeviceInfo(),
+                  ),
                   //const Text('Device Info'),
                   Visibility(
                     maintainSize: true,
@@ -118,12 +128,9 @@ class _CameraState extends State<Camera> {
                 children: [
                   ElevatedButton(
                       onPressed: () {
-                        // print('List of cameras: ${widget.cameras}');
-                        // onSwitchCamera()
                         selectedCameraIdx =
                             selectedCameraIdx < 1 ? selectedCameraIdx + 1 : 0;
-                        //CameraDescription selectedCamera = widget.cameras[selectedCameraIdx];
-                        print(widget.cameras[selectedCameraIdx]);
+                        //print(widget.cameras[selectedCameraIdx]);
                         initCamera(selectedCameraIdx);
                       },
                       child: const Text('Flip Camera')),
@@ -139,12 +146,16 @@ class _CameraState extends State<Camera> {
                   ElevatedButton(
                       onPressed: photo.isImageTaken
                           ? () {
+                              photo.imaggaResponse = '';
                               Navigator.of(context).pushReplacementNamed(
                                   DisplayPicture.routeName);
                             }
                           : null,
                       child: const Text('Next'))
                 ],
+              ),
+              SizedBox(
+                height: 30,
               )
             ],
           ),

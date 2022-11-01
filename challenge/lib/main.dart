@@ -4,12 +4,16 @@ import 'package:challenge/providers/connectivity_provider.dart';
 import 'package:challenge/providers/photo_provider.dart';
 import 'package:challenge/screens/camera.dart';
 import 'package:challenge/screens/displaypicture.dart';
-import 'package:challenge/screens/photogallery.dart';
 import 'package:challenge/screens/homepage.dart';
 import 'package:challenge/screens/takephoto.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 
+import 'providers/notification_provider.dart';
+
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // // Obtain a list of the available cameras on the device.
@@ -19,11 +23,43 @@ void main() async {
   ));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key, required this.camera});
   final List<CameraDescription> camera;
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    NotificationProvider.initialize(flutterLocalNotificationsPlugin);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.inactive ||
+        state == AppLifecycleState.detached) return;
+    final isAppBackground = state == AppLifecycleState.paused;
+    if (isAppBackground) {
+      print('se salio de la app');
+      NotificationProvider.showTextNotification(
+          title: "Leaving the app",
+          body: "Press to go back to the app",
+          fln: flutterLocalNotificationsPlugin);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -40,9 +76,8 @@ class MyApp extends StatelessWidget {
         home: const HomePage(),
         routes: {
           HomePage.routeName: (context) => const HomePage(),
-          PhotoGallery.routeName: (context) => const PhotoGallery(),
           TakePhoto.routeName: (context) => const TakePhoto(),
-          Camera.routeName: (context) => Camera(cameras: camera),
+          Camera.routeName: (context) => Camera(cameras: widget.camera),
           DisplayPicture.routeName: (context) => const DisplayPicture(),
         },
       ),
