@@ -10,9 +10,6 @@ import 'package:provider/provider.dart';
 
 import 'camera.dart';
 
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-    FlutterLocalNotificationsPlugin();
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
   static const routeName = '/homepage';
@@ -22,12 +19,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  @override
-  void initState() {
-    super.initState();
-    NotificationProvider.initialize(flutterLocalNotificationsPlugin);
-  }
-
   @override
   Widget build(BuildContext context) {
     final photo = Provider.of<PhotoProvider>(context);
@@ -58,15 +49,6 @@ class _HomePageState extends State<HomePage> {
                     photo.pickImage(context, ImageSource.gallery);
                   },
                   child: Text('Load Picture from Gallery'),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    NotificationProvider.showTextNotification(
-                        title: "Leaving the app",
-                        body: "Press to go back to the app",
-                        fln: flutterLocalNotificationsPlugin);
-                  },
-                  child: Text('Send Notification'),
                 ),
               ],
             ),

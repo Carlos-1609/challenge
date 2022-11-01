@@ -44,13 +44,13 @@ class _DisplayPictureState extends State<DisplayPicture> {
               Container(
                 margin: const EdgeInsets.all(15.0),
                 padding: const EdgeInsets.all(3.0),
-                height: 80.0,
+                height: 160.0,
                 decoration: BoxDecoration(
                   border: photo.imaggaResponse.isEmpty
                       ? null
                       : Border.all(
                           color: Colors.blueAccent,
-                          width: 5.0,
+                          width: 2.0,
                         ),
                 ),
                 child: SingleChildScrollView(
@@ -64,8 +64,6 @@ class _DisplayPictureState extends State<DisplayPicture> {
                   ),
                 ),
               ),
-
-              /************ */
               ElevatedButton(
                 onPressed: () {
                   photo.savePhoto();
@@ -82,59 +80,3 @@ class _DisplayPictureState extends State<DisplayPicture> {
     );
   }
 }
-
-
-// """{
-//   "result": {
-//     "tags": [
-//       {
-//         "confidence": 61.4116096496582,
-//         "tag": {
-//           "en": "mountain"
-//         }
-//       },
-//       {
-//         "confidence": 54.3507270812988,
-//         "tag": {
-//           "en": "landscape"
-//         }
-//       },
-//       {
-//         "confidence": 50.969783782959,
-//         "tag": {
-//           "en": "mountains"
-//         }
-//       },
-//       {
-//         "confidence": 46.1385192871094,
-//         "tag": {
-//           "en": "wall"
-//         }
-//       },
-//       {
-//         "confidence": 40.6059913635254,
-//         "tag": {
-//           "en": "clouds"
-//         }
-//       },
-//       {
-//         "confidence": 37.2282066345215,
-//         "tag": {
-//           "en": "sky"
-//         }
-//       },
-//       {
-//         "confidence": 36.2647514343262,
-//         "tag": {
-//           "en": "park"
-//         }
-//       }"""
-
-// Padding(
-//                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
-//                 child: RichText(
-//                     text: TextSpan(
-//                   style: TextStyle(color: Colors.black),
-//                   text: '${photo.res}',
-//                 )),
-//               ),
