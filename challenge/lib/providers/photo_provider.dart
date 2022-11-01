@@ -65,7 +65,6 @@ class PhotoProvider with ChangeNotifier {
     final fileName = basename(image!.path);
     _imagePath =
         '$appDocPath/$fileName'; //este es el directorio donde esta la imagen en el phone
-    await FlutterNativeImage.compressImage(_imagePath, quality: 5);
     Uint8List imagebytes = await image!.readAsBytes();
     base64String = base64.encode(imagebytes);
     final result = await ImageGallerySaver.saveImage(imagebytes);
