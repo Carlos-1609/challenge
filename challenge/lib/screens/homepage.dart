@@ -6,6 +6,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'dart:io' show Platform;
 
 import '../providers/notification_provider.dart';
 import 'camera.dart';
@@ -80,8 +81,13 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                     showNotification = false;
                     photo.imaggaResponse = '';
                     photo.showResponse = false;
-                    await photo.pickImage(context, ImageSource.gallery);
-                    showNotification = true;
+                    if (Platform.isAndroid) {
+                      await photo.pickImage(context, ImageSource.gallery);
+                      showNotification = true;
+                    } else {
+                      photo.pickImage(context, ImageSource.gallery);
+                      showNotification = true;
+                    }
                   },
                   child: Text('Load Picture from Gallery'),
                 ),

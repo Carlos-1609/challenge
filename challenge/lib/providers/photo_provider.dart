@@ -17,7 +17,7 @@ class PhotoProvider with ChangeNotifier {
   String? base64String;
   bool isImageTaken = false;
   bool showResponse = false;
-  bool showNotification = true;
+  bool isLoadingAPI = false;
   var imaggaResponse = '';
 
   set setIsImageTaken(bool imageState) {
@@ -73,6 +73,8 @@ class PhotoProvider with ChangeNotifier {
 
   fetchImagga() async {
     try {
+      isLoadingAPI = true;
+      notifyListeners();
       var url = Uri.https('api.imagga.com', '/v2/tags');
       var response = await http.post(
         url,
@@ -85,6 +87,7 @@ class PhotoProvider with ChangeNotifier {
       imaggaResponse = response.body;
       Map<String, dynamic> responseData = jsonDecode(response.body);
       showResponse = true;
+      isLoadingAPI = false;
       notifyListeners();
       print(responseData);
     } catch (error) {
