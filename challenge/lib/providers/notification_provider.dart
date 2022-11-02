@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class NotificationProvider {
@@ -31,22 +30,5 @@ class NotificationProvider {
         iOS: DarwinNotificationDetails());
 
     await fln.show(0, title, body, notification);
-    print('se mando la notification');
   }
-  // static final _notifications = FlutterLocalNotificationsPlugin();
-
-  // static Future _notificationDetails() async {
-  //   return NotificationDetails(
-  //       android: AndroidNotificationDetails(
-  //         'channel id',
-  //         'channel name',
-  //         channelDescription: 'channel description',
-  //       ),
-  //       iOS: DarwinNotificationDetails());
-  // }
-
-  // static Future showNotification(
-  //         {int id = 0, String? title, String? body, String? payload}) async =>
-  //     _notifications.show(id, title, body, await _notificationDetails(),
-  //         payload: payload);
 }

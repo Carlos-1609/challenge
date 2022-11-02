@@ -30,34 +30,34 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-    NotificationProvider.initialize(flutterLocalNotificationsPlugin);
-  }
+  // final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+  //     FlutterLocalNotificationsPlugin();
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   WidgetsBinding.instance.addObserver(this);
+  //   NotificationProvider.initialize(flutterLocalNotificationsPlugin);
+  // }
 
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   WidgetsBinding.instance.removeObserver(this);
+  //   super.dispose();
+  // }
 
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    super.didChangeAppLifecycleState(state);
-    if (state == AppLifecycleState.inactive ||
-        state == AppLifecycleState.detached) return;
-    final isAppBackground = state == AppLifecycleState.paused;
-    if (isAppBackground) {
-      NotificationProvider.showTextNotification(
-          title: "Leaving the app",
-          body: "Press to go back to the app",
-          fln: flutterLocalNotificationsPlugin);
-    }
-  }
+  // @override
+  // void didChangeAppLifecycleState(AppLifecycleState state) {
+  //   super.didChangeAppLifecycleState(state);
+  //   if (state == AppLifecycleState.inactive ||
+  //       state == AppLifecycleState.detached) return;
+  //   final isAppBackground = state == AppLifecycleState.detached;
+  //   if (isAppBackground) {
+  //     NotificationProvider.showTextNotification(
+  //         title: "Leaving the app",
+  //         body: "Press to go back to the app",
+  //         fln: flutterLocalNotificationsPlugin);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {

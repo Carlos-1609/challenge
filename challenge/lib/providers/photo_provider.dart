@@ -12,12 +12,12 @@ import 'package:http/http.dart' as http;
 
 class PhotoProvider with ChangeNotifier {
   File? image; //path de la image file
-  XFile? _compressedFile;
   String _imagePath = '';
   String imageId = '';
   String? base64String;
   bool isImageTaken = false;
   bool showResponse = false;
+  bool showNotification = true;
   var imaggaResponse = '';
 
   set setIsImageTaken(bool imageState) {
@@ -29,7 +29,6 @@ class PhotoProvider with ChangeNotifier {
     try {
       final image = await ImagePicker().pickImage(source: source);
       if (image == null) return;
-      _compressedFile = image;
       final imageTemporary = File(image.path);
       this.image = imageTemporary;
       notifyListeners();
